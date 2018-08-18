@@ -34,97 +34,117 @@ var drivebaseOpt = {
 var speedL = new Gauge(document.getElementById("speedLCan")).setOptions(drivebaseOpt);
 speedL.maxValue = 1;
 speedL.setMinValue(-1);
-speedL.animationSpeed = 1;
+speedL.animationSpeed = 5;
 speedL.set(0);
 
 var speedR = new Gauge(document.getElementById("speedRCan")).setOptions(drivebaseOpt);
 speedR.maxValue = 1;
 speedR.setMinValue(-1);
-speedR.animationSpeed = 1;
+speedR.animationSpeed = 5;
 speedR.set(0);
 
-function setPWMBar(id,val){
+function setPWMBar(id, val) {
   var max = 1.01;
   var min = -1.01;
   var range = max - min;
-  var perC = (val/range*100)+50;
-  $("#"+id).attr('style',"width: "+Math.abs(perC)+"%");
-  if(perC > 50){
-    $("#"+id).attr('class',"progress-bar bg-success");
-  }
-  else if (perC < 50) {
-    $("#"+id).attr('class',"progress-bar bg-danger");
-  }
-  else{
-    $("#"+id).attr('class',"progress-bar bg-warning");
+  var perC = (val / range * 100) + 50;
+  $("#" + id).attr('style', "width: " + Math.abs(perC) + "%");
+  if (perC > 50) {
+    $("#" + id).attr('class', "progress-bar bg-success  progress-bar-striped progress-bar-animated");
+  } else if (perC < 50) {
+    $("#" + id).attr('class', "progress-bar bg-danger  progress-bar-striped progress-bar-animated");
+  } else {
+    $("#" + id).attr('class', "progress-bar bg-warning");
   }
 }
 
 //Drive Base
 
-function setUpAssBar(id,val){
+function setUpAssBar(id, val) {
   var max = 0;
   var min = -5800;
   var range = max - min;
-  var perC = val/range*100;
-  $("#"+id).attr('style',"width: "+Math.abs(perC)+"%");
-  if(perC > 0){
-    $("#"+id).attr('class',"progress-bar bg-warning");
-  }
-  else{
-    $("#"+id).attr('class',"progress-bar bg-info");
+  var perC = val / range * 100;
+  $("#" + id).attr('style', "width: " + Math.abs(perC) + "%");
+  if (perC > 0) {
+    $("#" + id).attr('class', "progress-bar bg-warning");
+  } else {
+    $("#" + id).attr('class', "progress-bar bg-info");
   }
 }
 
 //Up UpAssembly
 
-var compassC = new RadialGauge({
-    width:180,
-    renderTo: 'compassC',
-    minValue: 0,
-    maxValue: 360,
-    majorTicks: [
-        "0",
-        "45",
-        "90",
-        "135",
-        "180",
-        "-135",
-        "-90",
-        "-45",
-        "0"
-    ],
-    minorTicks: 22,
-    ticksAngle: 360,
-    startAngle: 180,
-    strokeTicks: false,
-    highlights: false,
-    colorPlate: "#222",
-    colorMajorTicks: "#f5f5f5",
-    colorMinorTicks: "#ddd",
-    colorNumbers: "#ccc",
-    colorNeedle: "rgba(240, 128, 128, 1)",
-    colorNeedleEnd: "rgba(255, 160, 122, .9)",
-    valueBox: false,
-    valueTextShadow: false,
-    colorCircleInner: "#fff",
-    colorNeedleCircleOuter: "#ccc",
-    needleCircleSize: 15,
-    needleCircleOuter: false,
-    animationRule: "linear",
-    needleType: "line",
-    needleStart: 75,
-    needleEnd: 99,
-    needleWidth: 5,
-    borders: true,
-    borderInnerWidth: 0,
-    borderMiddleWidth: 0,
-    borderOuterWidth: 5,
-    colorBorderOuter: "#ccc",
-    colorBorderOuterEnd: "#ccc",
-    colorNeedleShadowDown: "#222",
-    borderShadowWidth: 0,
-    animationDuration: 0,
-}).draw();
+var compassOption = {
+  width: 180,
+  height: 180,
+  renderTo: 'compassC',
+  minValue: 0,
+  maxValue: 360,
+  majorTicks: [
+    "0",
+    "45",
+    "90",
+    "135",
+    "180",
+    "-135",
+    "-90",
+    "-45",
+    "0"
+  ],
+  minorTicks: 22,
+  ticksAngle: 360,
+  startAngle: 180,
+  strokeTicks: false,
+  highlights: false,
+  colorPlate: "#222",
+  colorMajorTicks: "#f5f5f5",
+  colorMinorTicks: "#ddd",
+  colorNumbers: "#ccc",
+  colorNeedle: "rgba(240, 128, 128, 1)",
+  colorNeedleEnd: "rgba(255, 160, 122, .9)",
+  valueBox: false,
+  valueTextShadow: false,
+  colorCircleInner: "#fff",
+  colorNeedleCircleOuter: "#ccc",
+  needleCircleSize: 15,
+  needleCircleOuter: false,
+  animationRule: "linear",
+  needleType: "line",
+  needleStart: 75,
+  needleEnd: 99,
+  needleWidth: 5,
+  borders: true,
+  borderInnerWidth: 0,
+  borderMiddleWidth: 0,
+  borderOuterWidth: 5,
+  colorBorderOuter: "#ccc",
+  colorBorderOuterEnd: "#ccc",
+  colorNeedleShadowDown: "#222",
+  borderShadowWidth: 0,
+  animationDuration: 50,
+};
+var compassC = new RadialGauge(compassOption).draw();
 
 //Compass
+
+
+//SuckingAssembly
+
+function setAmpBar(id, val,safe) {
+  var max = 50;
+  var min = 0;
+  var range = max - min;
+  var perC = (val / range * 100)+1;
+  $("#" + id).attr('style', "width: " + Math.abs(perC) + "%");
+  if(val == 0){
+    $("#" + id).attr('class', "progress-bar bg-success");
+  }
+  else if (val < safe) {
+    $("#" + id).attr('class', "progress-bar bg-warning");
+  } else {
+    $("#" + id).attr('class', "progress-bar bg-danger");
+  }
+}
+
+//PDP

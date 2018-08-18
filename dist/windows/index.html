@@ -3,7 +3,7 @@
 <html>
 
 <head>
-  <title>Overlooking SmartDashbaord</title>
+  <title>#6083 SmartDashbaord</title>
   <link rel="stylesheet" href="/bootstrap-4.1.2-dist/css/bootstrap.min.css">
   <script src="/networktables/networktables.js"></script>
   <script src="jquery-3.3.1.min.js"></script>
@@ -12,28 +12,11 @@
   <script src="/d3/d3.js"></script>
   <script src="gauge.min.js"></script>
   <script src="canvas-gauge.min.js"></script>
+  <script src="/networktables/camera.js"></script>
+  <script src="ping.js"></script>
 </head>
 
 <body>
-  <div id="navBarContainer">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="/">#6083 SmartDashboard</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="/">Main<span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Detail</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </div>
-
   <div class="container-fluid">
     <div class="row mt-2">
       <div class="col">
@@ -42,9 +25,15 @@
             <div class="row">
               <div class="col">
                 <h5 class="card-title">Robot:<span class="badge badge-pill badge-danger" id="com-stat">No Connection</span></h5>
+                <h5 class="card-title">Status:<span class="badge badge-pill badge-danger" id="robot-stat">N/A</span></h5>
               </div>
               <div class="col">
-                MatchTime:
+                Event:<span class="badge badge-pill badge-info" id="event">N/A</span> Match:
+                <span class="badge badge-pill badge-info" id="match">N/A</span> Station:
+                <span class="badge badge-pill badge-info" id="station">N/A</span>
+              </div>
+              <div class="col">
+                MatchTime:<span class="badge badge-pill badge-info" id="mtime">N/A</span>
               </div>
               <div class="col">
                 Battery Voltage
@@ -71,6 +60,8 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Camera</h5>
+
+            <div id="cam"></div>
           </div>
         </div>
       </div>
@@ -85,12 +76,18 @@
               <li class="nav-item">
                 <a class="nav-link" href="#PowerT" role="tab" data-toggle="tab">Power</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#SettingT" role="tab" data-toggle="tab">Setting</a>
+              </li>
             </ul>
           </div>
           <div class="card-body">
             <!-- Main Tab -->
             <div class="tab-pane fade show active" id="MainT" role="tabpanel">
-              <h5 class="card-title">DriveBase</h5>
+              <h5 class="card-title">
+                DriveBase
+                <button type="button" class="btn btn-outline-info btn-sm" data-toggle="button" id="driveRev">Drive Reverse</button>
+              </h5>
               <div class="row">
                 <div class="col-6">
                   <h5>Left: <span class="badge badge-secondary" id="speedL">??</span></h5>
@@ -114,14 +111,32 @@
               </div>
               Up Motor Out: <span class="badge badge-secondary" id="upOut">??</span>
               <div class="progress">
-                <div class="progress-bar bg-info" role="progressbar" style="width: 50%" id="upOutB"></div>
+                <div class="progress-bar bg-info progress-bar-striped" role="progressbar" style="width: 50%" id="upOutB"></div>
               </div>
-              <button type="button" class="btn btn-outline-warning mt-1" data-toggle="button" id="upHoldOver">Holding Override</button>
+              <button type="button" class="btn btn-outline-warning btn-sm mt-1" data-toggle="button" id="upHoldOver">Holding Override</button>
+
+              <h5 class="card-title">
+                SuckingAssembly
+                <span class="badge badge-warning" id="suckInfo"></span>
+              </h5>
+              Left Claw: <span class="badge badge-secondary" id="suckC1">??</span>
+              <div class="progress">
+                <div class="progress-bar bg-info" role="progressbar" style="width: 50%" id="suckC1B"></div>
+              </div>
+              Right Claw: <span class="badge badge-secondary" id="suckC2">??</span>
+              <div class="progress">
+                <div class="progress-bar bg-info" role="progressbar" style="width: 50%" id="suckC2B"></div>
+              </div>
             </div>
             <!-- Power Tab -->
-            <div class="tab-pane fade show active" id="PowerT" role="tabpanel">
+            <div class="tab-pane fade" id="PowerT" role="tabpanel">
 
             </div>
+            <!-- Setting Tab -->
+            <div class="tab-pane fade" id="SettingT" role="tabpanel">
+
+            </div>
+
 
           </div>
         </div>

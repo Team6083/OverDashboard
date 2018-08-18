@@ -22,9 +22,9 @@ function updateCommStat(stat) {
     $("#com-stat").html("Only Ws");
   } else if (RobotCom) {
     $("#com-stat").attr('class', "badge badge-success badge-pill");
-    $("#com-stat").html("Only Ronot");
+    $("#com-stat").html("Only Robot");
   } else {
-    $("#com-stat").class("badge badge-warning");
+    $("#com-stat").attr('class',"badge badge-warning");
   }
 }
 
@@ -33,7 +33,19 @@ NetworkTables.addGlobalListener(function(key, value, isNew) {
   console.log(key, " ", value);
 }, true);
 
+//FMS
 
+NetworkTables.addKeyListener("/FMSInfo/EventName", function(key, value, isNew) {
+  $("#event").html(value);
+}, true);
+
+NetworkTables.addKeyListener("/FMSInfo/MatchNumber", function(key, value, isNew) {
+  $("#match").html(value);
+}, true);
+
+NetworkTables.addKeyListener("/FMSInfo/StationNumber", function(key, value, isNew) {
+  $("#station").html(value);
+}, true);
 
 //DriveBase
 NetworkTables.addKeyListener("/SmartDashbaord/drive/leftSpeed", function(key, value, isNew) {
@@ -46,6 +58,19 @@ NetworkTables.addKeyListener("/SmartDashbaord/drive/rightSpeed", function(key, v
   $("#speedR").html(value);
 }, true);
 
+NetworkTables.addKeyListener("/SmartDashbaord/drive/reverse", function(key, value, isNew) {
+  if(value){
+    $("#driveRev").addClass("active");
+  }
+  else{
+    $("#driveRev").removeClass("active");
+  }
+}, true);
+
+$("#driveRev").click(function(){
+  var valKey = "/SmartDashbaord/drive/reverse";
+  NetworkTables.putValue(valKey, !NetworkTables.getValue(valKey));
+});
 
 //Up Ass
 NetworkTables.addKeyListener("/SmartDashbaord/Up/Enc", function(key, value, isNew) {
@@ -81,4 +106,31 @@ $("#upHoldOver").click(function() {
 NetworkTables.addKeyListener("/SmartDashbaord/Gyro/angle", function(key, value, isNew) {
   compassC.value = value;
   $("#compass").html(value);
+}, true);
+
+//Camera
+var cam1URL = "axis-camera1.local";
+
+loadCameraOnConnect({
+    container: '#cam',
+    port: 5800,
+    host:cam1URL,
+    image_url: '/?action=stream',
+    data_url: '/program.json',
+    attrs: {
+        width: 320,
+        height: 240
+    }
+});
+
+//SuckingAssembly
+
+NetworkTables.addKeyListener("/SmartDashbaord/Cube/current1", function(key, value, isNew) {
+  setAmpBar("suckC1B", value, 30);
+  $("#suckC1").html(value);
+}, true);
+
+NetworkTables.addKeyListener("/SmartDashbaord/Cube/current2", function(key, value, isNew) {
+  setAmpBar("suckC2B", value, 30);
+  $("#suckC2").html(value);
 }, true);
