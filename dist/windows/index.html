@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+  <title>Overlooking SmartDashbaord</title>
+  <link rel="stylesheet" href="/bootstrap-4.1.2-dist/css/bootstrap.min.css">
+  <script src="/networktables/networktables.js"></script>
+  <script src="jquery-3.3.1.min.js"></script>
+  <script src="tooltip.min.js"></script>
+  <script src="/bootstrap-4.1.2-dist/js/bootstrap.min.js"></script>
+  <script src="/d3/d3.js"></script>
+  <script src="gauge.min.js"></script>
+  <script src="canvas-gauge.min.js"></script>
+</head>
+
+<body>
+  <div id="navBarContainer">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/">#6083 SmartDashboard</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Main<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Detail</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row mt-2">
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <h5 class="card-title">Robot:<span class="badge badge-pill badge-danger" id="com-stat">No Connection</span></h5>
+              </div>
+              <div class="col">
+                MatchTime:
+              </div>
+              <div class="col">
+                Battery Voltage
+                <div class="progress">
+                  <div class="progress-bar bg-info" role="progressbar" style="width: 50%" id="battV">??%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-lg-2">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Orientation</h5>
+            <canvas id="compassC"></canvas>
+            <h5>Gyro angle: <span class="badge badge-secondary" id="compass">??</span></h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Camera</h5>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-5">
+        <div class="card">
+          <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" href="#MainT" role="tab" data-toggle="tab">Main</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#PowerT" role="tab" data-toggle="tab">Power</a>
+              </li>
+            </ul>
+          </div>
+          <div class="card-body">
+            <!-- Main Tab -->
+            <div class="tab-pane fade show active" id="MainT" role="tabpanel">
+              <h5 class="card-title">DriveBase</h5>
+              <div class="row">
+                <div class="col-6">
+                  <h5>Left: <span class="badge badge-secondary" id="speedL">??</span></h5>
+                  <canvas id="speedLCan"></canvas>
+                </div>
+                <div class="col-5">
+                  <h5>Right: <span class="badge badge-secondary" id="speedR">??</span></h5>
+                  <canvas id="speedRCan"></canvas>
+                </div>
+              </div>
+              <h5 class="card-title">
+                UpAssembly
+                <span class="badge badge-warning" id="upInfo"></span>
+              </h5> Up Enc: <span class="badge badge-secondary" id="upEnc">??</span>
+              <div class="progress">
+                <div class="progress-bar bg-info" role="progressbar" style="width: 50%" id="upEncB"></div>
+              </div>
+              Up Target: <span class="badge badge-secondary" id="upTarget">??</span>
+              <div class="progress">
+                <div class="progress-bar bg-info" role="progressbar" style="width: 50%" id="upTargetB"></div>
+              </div>
+              Up Motor Out: <span class="badge badge-secondary" id="upOut">??</span>
+              <div class="progress">
+                <div class="progress-bar bg-info" role="progressbar" style="width: 50%" id="upOutB"></div>
+              </div>
+              <button type="button" class="btn btn-outline-warning mt-1" data-toggle="button" id="upHoldOver">Holding Override</button>
+            </div>
+            <!-- Power Tab -->
+            <div class="tab-pane fade show active" id="PowerT" role="tabpanel">
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="ui_6083.js"></script>
+  <script src="nt_6083.js"></script>
+</body>
+
+</html>
