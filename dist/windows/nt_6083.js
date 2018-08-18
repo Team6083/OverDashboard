@@ -90,7 +90,7 @@ NetworkTables.addKeyListener("/SmartDashbaord/Up/motorOutPut", function(key, val
 
 NetworkTables.addKeyListener("/SmartDashbaord/Up/HoldOverride", function(key, value, isNew) {
   if(value){
-    $("#upInfo").html("Holding Override");
+    $("#upInfo").html("Holding Override Active");
   }
   else{
     $("#upInfo").html("");
@@ -110,11 +110,24 @@ NetworkTables.addKeyListener("/SmartDashbaord/Gyro/angle", function(key, value, 
 
 //Camera
 var cam1URL = "axis-camera1.local";
+var cam2URL = "axis-camera2.local";
 
 loadCameraOnConnect({
-    container: '#cam',
+    container: '#cam1',
     port: 5800,
     host:cam1URL,
+    image_url: '/?action=stream',
+    data_url: '/program.json',
+    attrs: {
+        width: 320,
+        height: 240
+    }
+});
+
+loadCameraOnConnect({
+    container: '#cam2',
+    port: 5800,
+    host:cam2URL,
     image_url: '/?action=stream',
     data_url: '/program.json',
     attrs: {
