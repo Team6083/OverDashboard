@@ -30,7 +30,16 @@ function updateCommStat(stat) {
 
 // Connection Stat
 NetworkTables.addGlobalListener(function(key, value, isNew) {
-  console.log(key, " ", value);
+  if(key.split('/')[1] == "SmartDashboard" || false){
+    console.log(key, " ", value);
+  }
+}, true);
+
+//System Info
+
+NetworkTables.addKeyListener("/LiveWindow/Ungrouped/PowerDistributionPanel[1]/Voltage", function(key, value, isNew) {
+  setValtBar("battV",value);
+  $("#battV").html(value+" V");
 }, true);
 
 //FMS
@@ -48,17 +57,17 @@ NetworkTables.addKeyListener("/FMSInfo/StationNumber", function(key, value, isNe
 }, true);
 
 //DriveBase
-NetworkTables.addKeyListener("/SmartDashbaord/drive/leftSpeed", function(key, value, isNew) {
+NetworkTables.addKeyListener("/SmartDashboard/drive/leftSpeed", function(key, value, isNew) {
   speedL.set(value);
   $("#speedL").html(value);
 }, true);
 
-NetworkTables.addKeyListener("/SmartDashbaord/drive/rightSpeed", function(key, value, isNew) {
+NetworkTables.addKeyListener("/SmartDashboard/drive/rightSpeed", function(key, value, isNew) {
   speedR.set(value);
   $("#speedR").html(value);
 }, true);
 
-NetworkTables.addKeyListener("/SmartDashbaord/drive/reverse", function(key, value, isNew) {
+NetworkTables.addKeyListener("/SmartDashboard/drive/reverse", function(key, value, isNew) {
   if(value){
     $("#driveRev").addClass("active");
   }
@@ -68,27 +77,27 @@ NetworkTables.addKeyListener("/SmartDashbaord/drive/reverse", function(key, valu
 }, true);
 
 $("#driveRev").click(function(){
-  var valKey = "/SmartDashbaord/drive/reverse";
+  var valKey = "/SmartDashboard/drive/reverse";
   NetworkTables.putValue(valKey, !NetworkTables.getValue(valKey));
 });
 
 //Up Ass
-NetworkTables.addKeyListener("/SmartDashbaord/Up/Enc", function(key, value, isNew) {
+NetworkTables.addKeyListener("/SmartDashboard/Up/Enc", function(key, value, isNew) {
   setUpAssBar("upEncB", value);
   $("#upEnc").html(value);
 }, true);
 
-NetworkTables.addKeyListener("/SmartDashbaord/Up/targetStep", function(key, value, isNew) {
+NetworkTables.addKeyListener("/SmartDashboard/Up/targetStep", function(key, value, isNew) {
   setUpAssBar("upTargetB", value);
   $("#upTarget").html(value);
 }, true);
 
-NetworkTables.addKeyListener("/SmartDashbaord/Up/motorOutPut", function(key, value, isNew) {
+NetworkTables.addKeyListener("/SmartDashboard/Up/motorOutPut", function(key, value, isNew) {
   setPWMBar("upOutB", value);
   $("#upOut").html(value);
 }, true);
 
-NetworkTables.addKeyListener("/SmartDashbaord/Up/HoldOverride", function(key, value, isNew) {
+NetworkTables.addKeyListener("/SmartDashboard/Up/HoldOverride", function(key, value, isNew) {
   if(value){
     $("#upInfo").html("Holding Override Active");
   }
@@ -98,15 +107,50 @@ NetworkTables.addKeyListener("/SmartDashbaord/Up/HoldOverride", function(key, va
 }, true);
 
 $("#upHoldOver").click(function() {
-  var valKey = "/SmartDashbaord/Up/HoldOverride";
+  var valKey = "/SmartDashboard/Up/HoldOverride";
   NetworkTables.putValue(valKey, !NetworkTables.getValue(valKey));
 });
 
 //Gyro
-NetworkTables.addKeyListener("/SmartDashbaord/Gyro/angle", function(key, value, isNew) {
+NetworkTables.addKeyListener("/SmartDashboard/Gyro/angle", function(key, value, isNew) {
   compassC.value = value;
   $("#compass").html(value);
 }, true);
+
+//Encoders
+
+NetworkTables.addKeyListener("/SmartDashboard/Left Dis", function(key, value, isNew) {
+  $("#lEnc").html(value);
+}, true);
+
+NetworkTables.addKeyListener("/SmartDashboard/Right Dis", function(key, value, isNew) {
+  $("#rEnc").html(value);
+}, true);
+
+//SuckingAssembly
+
+NetworkTables.addKeyListener("/SmartDashboard/Cube/current1", function(key, value, isNew) {
+  setAmpBar("suckC1B", value, 30);
+  $("#suckC1").html(value);
+}, true);
+
+NetworkTables.addKeyListener("/SmartDashboard/Cube/current2", function(key, value, isNew) {
+  setAmpBar("suckC2B", value, 30);
+  $("#suckC2").html(value);
+}, true);
+
+//ClimbAssembly
+
+NetworkTables.addKeyListener("/SmartDashboard/Climb/ropeOut", function(key, value, isNew) {
+  setPWMBar("climbRopeB", value);
+  $("#climbRope").html(value);
+}, true);
+
+NetworkTables.addKeyListener("/SmartDashboard/Climb/HookOut", function(key, value, isNew) {
+  setPWMBar("climbHookB", value);
+  $("#climbHook").html(value);
+}, true);
+
 
 //Camera
 var cam1URL = "axis-camera1.local";
@@ -135,15 +179,3 @@ loadCameraOnConnect({
         height: 240
     }
 });
-
-//SuckingAssembly
-
-NetworkTables.addKeyListener("/SmartDashbaord/Cube/current1", function(key, value, isNew) {
-  setAmpBar("suckC1B", value, 30);
-  $("#suckC1").html(value);
-}, true);
-
-NetworkTables.addKeyListener("/SmartDashbaord/Cube/current2", function(key, value, isNew) {
-  setAmpBar("suckC2B", value, 30);
-  $("#suckC2").html(value);
-}, true);

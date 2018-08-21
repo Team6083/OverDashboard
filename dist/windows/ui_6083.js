@@ -129,8 +129,6 @@ var compassC = new RadialGauge(compassOption).draw();
 //Compass
 
 
-//SuckingAssembly
-
 function setAmpBar(id, val,safe) {
   var max = 50;
   var min = 0;
@@ -144,6 +142,22 @@ function setAmpBar(id, val,safe) {
     $("#" + id).attr('class', "progress-bar bg-warning");
   } else {
     $("#" + id).attr('class', "progress-bar bg-danger");
+  }
+}
+
+function setValtBar(id, val) {
+  var max = 15;
+  var min = 0;
+  var range = max - min;
+  var perC = (val / range * 100)+1;
+  $("#" + id).attr('style', "width: " + Math.abs(perC) + "%");
+  if(val > 12){
+    $("#" + id).attr('class', "progress-bar bg-success");
+  }
+  else if (val < 10) {
+    $("#" + id).attr('class', "progress-bar bg-danger");
+  } else {
+    $("#" + id).attr('class', "progress-bar bg-warning");
   }
 }
 
