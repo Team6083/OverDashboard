@@ -41,6 +41,30 @@ NetworkTables.addKeyListener("/LiveWindow/Ungrouped/PowerDistributionPanel[1]/Vo
   $("#battV").html(value+" V");
 }, true);
 
+//Part Stat
+NetworkTables.addKeyListener("/SmartDashboard/drive/status", function(key, value, isNew) {
+  translateStatus("driveReady",value);
+}, true);
+NetworkTables.addKeyListener("/SmartDashboard/Up/status", function(key, value, isNew) {
+  translateStatus("upReady",value);
+}, true);
+NetworkTables.addKeyListener("/SmartDashboard/Cube/status", function(key, value, isNew) {
+  translateStatus("cubeReady",value);
+}, true);
+NetworkTables.addKeyListener("/SmartDashboard/Climb/status", function(key, value, isNew) {
+  translateStatus("climbReady",value);
+}, true);
+NetworkTables.addKeyListener("/SmartDashboard/Gyro/status", function(key, value, isNew) {
+  translateStatus("gyroReady",value);
+}, true);
+NetworkTables.addKeyListener("/SmartDashboard/AutoEngine/status", function(key, value, isNew) {
+  translateStatus("autoEngingReady",value);
+}, true);
+NetworkTables.addKeyListener("/SmartDashboard/pdp/status", function(key, value, isNew) {
+  translateStatus("pdpReady",value);
+}, true);
+
+
 //FMS
 NetworkTables.addKeyListener("/FMSInfo/EventName", function(key, value, isNew) {
   $("#event").html(value);
@@ -55,8 +79,8 @@ NetworkTables.addKeyListener("/FMSInfo/StationNumber", function(key, value, isNe
 }, true);
 
 
-
-
+//
+//
 //Auto settings
 NetworkTables.addKeyListener("/SmartDashboard/autoDelay", function(key, value, isNew) {
   $("#autoDelay").val(value);
@@ -77,6 +101,10 @@ $("#autoDelay").change(function() {
   }
 });
 
+attachSelectToSendableChooser("#autoChoice","/SmartDashboard/Auto choices");
+attachSelectToSendableChooser("#autoStation","/SmartDashboard/Auto point choices");
+
+
 //Auto mode
 NetworkTables.addKeyListener("/SmartDashboard/Target Angle", function(key, value, isNew) {
   $("#targetAngle").html(value);
@@ -96,8 +124,8 @@ NetworkTables.addKeyListener("/SmartDashboard/Timer", function(key, value, isNew
 
 
 
-
-
+//
+//
 //DriveBase
 NetworkTables.addKeyListener("/SmartDashboard/drive/leftSpeed", function(key, value, isNew) {
   speedL.set(value);

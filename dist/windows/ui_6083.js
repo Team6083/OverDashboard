@@ -57,8 +57,8 @@ function setPWMBar(id, val) {
     $("#" + id).attr('class', "progress-bar bg-warning");
   }
 }
-
 //Drive Base
+
 
 function setUpAssBar(id, val) {
   var max = 0;
@@ -72,8 +72,8 @@ function setUpAssBar(id, val) {
     $("#" + id).attr('class', "progress-bar bg-info");
   }
 }
-
 //Up UpAssembly
+
 
 var compassOption = {
   width: 180,
@@ -125,20 +125,18 @@ var compassOption = {
   animationDuration: 50,
 };
 var compassC = new RadialGauge(compassOption).draw();
-
 //Compass
 
 
-function setAmpBar(id, val,safe) {
-  var max = 50;
+function setAmpBar(id, val, safe) {
+  var max = 40;
   var min = 0;
   var range = max - min;
-  var perC = (val / range * 100)+1;
+  var perC = (val / range * 100) + 1;
   $("#" + id).attr('style', "width: " + Math.abs(perC) + "%");
-  if(val == 0){
+  if (val == 0) {
     $("#" + id).attr('class', "progress-bar bg-success");
-  }
-  else if (val < safe) {
+  } else if (val < safe) {
     $("#" + id).attr('class', "progress-bar bg-warning");
   } else {
     $("#" + id).attr('class', "progress-bar bg-danger");
@@ -146,19 +144,45 @@ function setAmpBar(id, val,safe) {
 }
 
 function setValtBar(id, val) {
-  var max = 15;
+  var max = 13.5;
   var min = 0;
   var range = max - min;
-  var perC = (val / range * 100)+1;
+  var perC = (val / range * 100) + 1;
   $("#" + id).attr('style', "width: " + Math.abs(perC) + "%");
-  if(val > 12){
+  if (val > 12.2) {
     $("#" + id).attr('class', "progress-bar bg-success");
-  }
-  else if (val < 10) {
+  } else if (val < 11.2) {
     $("#" + id).attr('class', "progress-bar bg-danger");
   } else {
     $("#" + id).attr('class', "progress-bar bg-warning");
   }
 }
-
 //PDP
+
+function translateStatus(id, num) {
+  switch (num) {
+    case 0:
+      setOK(id);
+      break;
+    case 1:
+      setWarn(id);
+      break;
+    case 2:
+      setErr(id);
+      break;
+    default:
+  }
+}
+
+function setOK(id) {
+  $("#" + id).attr('class', "badge badge-pill badge-success");
+}
+
+function setWarn(id) {
+  $("#" + id).attr('class', "badge badge-pill badge-warning");
+}
+
+function setErr(id) {
+  $("#" + id).attr('class', "badge badge-pill badge-danger");
+}
+//Part Stat

@@ -13,6 +13,7 @@
   <script src="gauge.min.js"></script>
   <script src="canvas-gauge.min.js"></script>
   <script src="/networktables/camera.js"></script>
+  <script src="/networktables/utils.js"></script>
 </head>
 
 <body>
@@ -39,6 +40,15 @@
                   <div class="progress-bar bg-danger" role="progressbar" style="width: 50%" id="battV">?? V</div>
                 </div>
               </div>
+              <div class="col">
+                <span class="badge badge-pill badge-light" id="driveReady">DriveBase</span>
+                <span class="badge badge-pill badge-light" id="upReady">UpAssembly</span>
+                <span class="badge badge-pill badge-light" id="cubeReady">SuckingAssembly</span>
+                <span class="badge badge-pill badge-light" id="climbReady">ClimbAssembly</span>
+                <span class="badge badge-pill badge-light" id="gyroReady">Gyro</span>
+                <span class="badge badge-pill badge-light" id="autoEngingReady">AutoEngine</span>
+                <span class="badge badge-pill badge-light" id="pdpReady">PDP</span>
+              </div>
             </div>
           </div>
         </div>
@@ -48,12 +58,11 @@
       <div class="col-lg-2">
         <div class="card">
           <div class="card-body">
-
             <h4>
-              CurrentStep:<br>
-              <span class="badge badge-info" id="autoStage">N/A</span>
+              CurrentStep:
+              <span class="badge badge-primary" id="autoStage">N/A</span>
             </h4>
-            <h6><span class="badge badge-secondary" id="autoTimer">N/A</span></h6>
+            <h6>Timer: <span class="badge badge-secondary" id="autoTimer">N/A</span></h6>
 
             <h5 class="card-title">Orientation
                 <br>
@@ -80,10 +89,10 @@
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title">Camera1</h5>
-                <button type="button" class="btn btn-info btn-lg" id="cam1Load">Load Cam1</button>
+                <button type="button" class="btn btn-primary btn-lg" id="cam1Load">Load Cam1</button>
                 <div id="cam1"></div>
                 <h5 class="card-title">Camera2</h5>
-                <button type="button" class="btn btn-info btn-lg" id="cam2Load">Load Cam2</button>
+                <button type="button" class="btn btn-primary btn-lg" id="cam2Load">Load Cam2</button>
                 <div id="cam2"></div>
               </div>
             </div>
@@ -184,6 +193,13 @@
                       <div class="valid-tooltip">OK</div>
                       <div class="invalid-tooltip">Please input Number</div>
                     </div>
+
+                    <h5>Auto Choice</h5>
+                    <select id="autoChoice"></select>
+
+                    <h5>Station</h5>
+                    <select id="autoStation"></select>
+
                   </div>
                 </div>
               </div>
