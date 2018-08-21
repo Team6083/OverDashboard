@@ -156,26 +156,32 @@ NetworkTables.addKeyListener("/SmartDashboard/Climb/HookOut", function(key, valu
 var cam1URL = "axis-camera1.local";
 var cam2URL = "axis-camera2.local";
 
-loadCameraOnConnect({
-    container: '#cam1',
-    port: 5800,
-    host:cam1URL,
-    image_url: '/?action=stream',
-    data_url: '/program.json',
-    attrs: {
-        width: 320,
-        height: 240
-    }
+$("#cam1Load").click(function(){
+  $(this).hide();
+  loadCameraOnConnect({
+      container: '#cam1',
+      port: 80,
+      host:cam1URL,
+      image_url: '/mjpg/video.mjpg',
+      data_url: '/css/common.css',
+      attrs: {
+          width: 320,
+          height: 240
+      }
+  });
 });
 
-loadCameraOnConnect({
-    container: '#cam2',
-    port: 5800,
-    host:cam2URL,
-    image_url: '/?action=stream',
-    data_url: '/program.json',
-    attrs: {
-        width: 320,
-        height: 240
-    }
+$("#cam2Load").click(function(){
+  $(this).hide();
+  loadCameraOnConnect({
+      container: '#cam2',
+      port: 80,
+      host:cam2URL,
+      image_url: '/mjpg/video.mjpg',
+      data_url: '/css/common.css',
+      attrs: {
+          width: 320,
+          height: 240
+      }
+  });
 });
