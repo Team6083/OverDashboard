@@ -48,21 +48,31 @@
       <div class="col-lg-2">
         <div class="card">
           <div class="card-body">
+
+            <h4>
+              CurrentStep:<br>
+              <span class="badge badge-info" id="autoStage">N/A</span>
+            </h4>
+            <h6><span class="badge badge-secondary" id="autoTimer">N/A</span></h6>
+
             <h5 class="card-title">Orientation
                 <br>
                 <span class="badge badge-secondary" id="compass">??</span></h5>
                 <canvas id="compassC"></canvas>
+
+                <h6>
+                  Target Angle: <span class="badge badge-secondary" id="targetAngle">??</span>
+                </h6>
+                <h6>
+                  Error Angle: <span class="badge badge-secondary" id="errAngle">??</span>
+                </h6>
+
+
                 <h5 class="card-title">Encoder</h5>
-
-                <h5>LeftDrive:
-                  <br>
-                  <span class="badge badge-danger" id="lEnc">??</span>
-                </h5>
-
-                <h5>RightDrive:
-                  <br>
-                  <span class="badge badge-danger" id="rEnc">??</span>
-                </h5>
+                <h6>LeftDrive:</h6>
+                <span class="badge badge-danger" id="lEnc">??</span>
+                <h6>RightDrive:</h6>
+                <span class="badge badge-danger" id="rEnc">??</span>
               </div>
             </div>
           </div>
@@ -95,79 +105,87 @@
                 </ul>
               </div>
               <div class="card-body">
-                <!-- Main Tab -->
-                <div class="tab-pane fade show active" id="MainT" role="tabpanel">
-                  <h5 class="card-title">
+                <div class="tab-content">
+                  <!-- Main Tab -->
+                  <div class="tab-pane fade show active" id="MainT" role="tabpanel">
+                    <h5 class="card-title">
                 DriveBase
                 <button type="button" class="btn btn-outline-info btn-sm" data-toggle="button" id="driveRev">Drive Reverse</button>
               </h5>
-                  <div class="row">
-                    <div class="col-6">
-                      <h5>Left: <span class="badge badge-secondary" id="speedL">??</span></h5>
-                      <canvas id="speedLCan"></canvas>
+                    <div class="row">
+                      <div class="col-6">
+                        <h5>Left: <span class="badge badge-secondary" id="speedL">??</span></h5>
+                        <canvas id="speedLCan"></canvas>
+                      </div>
+                      <div class="col-5">
+                        <h5>Right: <span class="badge badge-secondary" id="speedR">??</span></h5>
+                        <canvas id="speedRCan"></canvas>
+                      </div>
                     </div>
-                    <div class="col-5">
-                      <h5>Right: <span class="badge badge-secondary" id="speedR">??</span></h5>
-                      <canvas id="speedRCan"></canvas>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title">
+                    <div class="row">
+                      <div class="col">
+                        <h5 class="card-title">
                     UpAssembly
                     <span class="badge badge-warning" id="upInfo"></span>
                   </h5> Up Enc: <span class="badge badge-secondary" id="upEnc">??</span>
-                      <div class="progress">
-                        <div class="progress-bar bg-info" role="progressbar" style="width: 50%" id="upEncB"></div>
+                        <div class="progress">
+                          <div class="progress-bar bg-info" role="progressbar" style="width: 50%" id="upEncB"></div>
+                        </div>
+                        Up Target: <span class="badge badge-secondary" id="upTarget">??</span>
+                        <div class="progress">
+                          <div class="progress-bar bg-info" role="progressbar" style="width: 50%" id="upTargetB"></div>
+                        </div>
+                        Up Motor Out: <span class="badge badge-secondary" id="upOut">??</span>
+                        <div class="progress">
+                          <div class="progress-bar bg-info progress-bar-striped" role="progressbar" style="width: 50%" id="upOutB"></div>
+                        </div>
+                        <button type="button" class="btn btn-outline-warning btn-sm mt-1" data-toggle="button" id="upHoldOver">Holding Override</button>
                       </div>
-                      Up Target: <span class="badge badge-secondary" id="upTarget">??</span>
-                      <div class="progress">
-                        <div class="progress-bar bg-info" role="progressbar" style="width: 50%" id="upTargetB"></div>
-                      </div>
-                      Up Motor Out: <span class="badge badge-secondary" id="upOut">??</span>
-                      <div class="progress">
-                        <div class="progress-bar bg-info progress-bar-striped" role="progressbar" style="width: 50%" id="upOutB"></div>
-                      </div>
-                      <button type="button" class="btn btn-outline-warning btn-sm mt-1" data-toggle="button" id="upHoldOver">Holding Override</button>
-                    </div>
-                    <div class="col">
-                      <h5 class="card-title">
+                      <div class="col">
+                        <h5 class="card-title">
                     SuckingAssembly
                     <span class="badge badge-warning" id="suckInfo"></span>
                   </h5> Left Claw: <span class="badge badge-secondary" id="suckC1">??</span>
-                      <div class="progress">
-                        <div class="progress-bar bg-info" role="progressbar" style="width: 50%" id="suckC1B"></div>
+                        <div class="progress">
+                          <div class="progress-bar bg-info" role="progressbar" style="width: 50%" id="suckC1B"></div>
+                        </div>
+                        Right Claw: <span class="badge badge-secondary" id="suckC2">??</span>
+                        <div class="progress">
+                          <div class="progress-bar bg-info" role="progressbar" style="width: 50%" id="suckC2B"></div>
+                        </div>
                       </div>
-                      Right Claw: <span class="badge badge-secondary" id="suckC2">??</span>
-                      <div class="progress">
-                        <div class="progress-bar bg-info" role="progressbar" style="width: 50%" id="suckC2B"></div>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <h5 class="card-title">
+                      <div class="col">
+                        <h5 class="card-title">
                     ClimbAssembly
                   </h5> Rope Motor Out: <span class="badge badge-secondary" id="climbRope">??</span>
-                      <div class="progress">
-                        <div class="progress-bar bg-info progress-bar-striped" role="progressbar" style="width: 50%" id="climbRopeB"></div>
-                      </div>
-                      Hook Motor Out: <span class="badge badge-secondary" id="climbHook">??</span>
-                      <div class="progress">
-                        <div class="progress-bar bg-info progress-bar-striped" role="progressbar" style="width: 50%" id="climbHookB"></div>
+                        <div class="progress">
+                          <div class="progress-bar bg-info progress-bar-striped" role="progressbar" style="width: 50%" id="climbRopeB"></div>
+                        </div>
+                        Hook Motor Out: <span class="badge badge-secondary" id="climbHook">??</span>
+                        <div class="progress">
+                          <div class="progress-bar bg-info progress-bar-striped" role="progressbar" style="width: 50%" id="climbHookB"></div>
+                        </div>
                       </div>
                     </div>
+
                   </div>
+                  <!-- Power Tab -->
+                  <div class="tab-pane fade" id="PowerT" role="tabpanel">
 
+                  </div>
+                  <!-- Setting Tab -->
+                  <div class="tab-pane fade" id="SettingT" role="tabpanel">
+                    <h5>Delay before Auto Start(sec)</h5>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">AutoDelay(sec)</span>
+                      </div>
+                      <input type="text" class="form-control" id="autoDelay">
+                      <div class="valid-tooltip">OK</div>
+                      <div class="invalid-tooltip">Please input Number</div>
+                    </div>
+                  </div>
                 </div>
-                <!-- Power Tab -->
-                <div class="tab-pane fade" id="PowerT" role="tabpanel">
-
-                </div>
-                <!-- Setting Tab -->
-                <div class="tab-pane fade" id="SettingT" role="tabpanel">
-
-                </div>
-
-
               </div>
             </div>
           </div>

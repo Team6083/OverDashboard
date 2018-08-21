@@ -36,14 +36,12 @@ NetworkTables.addGlobalListener(function(key, value, isNew) {
 }, true);
 
 //System Info
-
 NetworkTables.addKeyListener("/LiveWindow/Ungrouped/PowerDistributionPanel[1]/Voltage", function(key, value, isNew) {
   setValtBar("battV",value);
   $("#battV").html(value+" V");
 }, true);
 
 //FMS
-
 NetworkTables.addKeyListener("/FMSInfo/EventName", function(key, value, isNew) {
   $("#event").html(value);
 }, true);
@@ -55,6 +53,50 @@ NetworkTables.addKeyListener("/FMSInfo/MatchNumber", function(key, value, isNew)
 NetworkTables.addKeyListener("/FMSInfo/StationNumber", function(key, value, isNew) {
   $("#station").html(value);
 }, true);
+
+
+
+
+//Auto settings
+NetworkTables.addKeyListener("/SmartDashboard/autoDelay", function(key, value, isNew) {
+  $("#autoDelay").val(value);
+}, true);
+
+$("#autoDelay").change(function() {
+  if(isNaN($(this).val())){
+    $(this).removeClass("is-valid");
+    $(this).addClass("is-invalid");
+  }
+  else{
+    $(this).removeClass("is-invalid");
+    $(this).addClass("is-valid");
+    NetworkTables.putValue("/SmartDashboard/autoDelay", parseInt($(this).val()));
+    setTimeout(function() {
+      $("#autoDelay").removeClass("is-valid");
+    }, 1000);
+  }
+});
+
+//Auto mode
+NetworkTables.addKeyListener("/SmartDashboard/Target Angle", function(key, value, isNew) {
+  $("#targetAngle").html(value);
+}, true);
+
+NetworkTables.addKeyListener("/SmartDashboard/Error Angle", function(key, value, isNew) {
+  $("#errAngle").html(value);
+}, true);
+
+NetworkTables.addKeyListener("/SmartDashboard/CurrentStep", function(key, value, isNew) {
+  $("#autoStage").html(value);
+}, true);
+
+NetworkTables.addKeyListener("/SmartDashboard/Timer", function(key, value, isNew) {
+  $("#autoTimer").html(value);
+}, true);
+
+
+
+
 
 //DriveBase
 NetworkTables.addKeyListener("/SmartDashboard/drive/leftSpeed", function(key, value, isNew) {
@@ -150,6 +192,9 @@ NetworkTables.addKeyListener("/SmartDashboard/Climb/HookOut", function(key, valu
   setPWMBar("climbHookB", value);
   $("#climbHook").html(value);
 }, true);
+
+
+
 
 
 //Camera
